@@ -2,5 +2,5 @@
 
 <h1>Movie Administration App</h1>
 
-<p>The Movie Admin App is an application made to create, remove, update and delete movie data for an Movie Review Website. The application will allow staff and critics to log into their appropriate roles to manage movie data and manage reviews respectively. It will hold the movie data and reviews that will be displayed to users on the front end.</p>
+<p>The main objective of the Movie Administration App is to create, remove, update and delete movie data for an Movie Review Website. The application will allow staff and critics to log into their appropriate roles to manage movie data and reviews respectively. It will hold the movie data and reviews that will be displayed to users on the front end through an API.</p>
 
