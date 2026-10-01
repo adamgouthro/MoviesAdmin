@@ -4,87 +4,90 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Movies</h1>
+<hr />
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Create New Movie</a>
 </p>
-<table class="table">
+<table class="table-bordered">
     <thead>
         <tr>
-            <th>
+            <th class="px-2 text-center">
                 @Html.DisplayNameFor(model => model.Title)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Synopsis)
-            </th>
-            <th>
+            @* <th>
+                @Html.DisplayNameFor(model => model.Synopsis) // Make it cleaner
+            </th> *@
+            <th class="px-2 text-center">
                 @Html.DisplayNameFor(model => model.Genre)
             </th>
-            <th>
+            <th class="px-2 text-center">
                 @Html.DisplayNameFor(model => model.Rating)
             </th>
-            <th>
+            <th class="px-2 text-center">
                 @Html.DisplayNameFor(model => model.Runtime)
             </th>
-            <th>
+            <th class="px-2 text-center">
                 @Html.DisplayNameFor(model => model.ReleaseDate)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
+            @* <th>
+                @Html.DisplayNameFor(model => model.CreatedDate) // They dont need to see the created date
+            </th> *@
+            <th class="px-2 text-center">
                 @Html.DisplayNameFor(model => model.Director)
             </th>
-            <th>
+            <th class="px-2 text-center">
                 @Html.DisplayNameFor(model => model.MovieStudio)
             </th>
-            <th>
+            <th class="px-2 text-center">
                 @Html.DisplayNameFor(model => model.Screenwriter)
             </th>
-            <th>
+            <th class="px-2 text-center">
                 @Html.DisplayNameFor(model => model.Distributor)
             </th>
-            <th></th>
+            <th class="px-2 text-center">
+                <p>Options</p>
+            </th>
         </tr>
-    </thead>
+    </thead> 
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
+            <td class="px-2 text-center">
                 @Html.DisplayFor(model => item.Title)
             </td>
-            <td>
+            @* <td>
                 @Html.DisplayFor(model => item.Synopsis)
-            </td>
-            <td>
+            </td> *@
+            <td class="px-2 text-center">
                 @Html.DisplayFor(model => item.Genre)
             </td>
-            <td>
+            <td class="px-2 text-center">
                 @Html.DisplayFor(model => item.Rating)
             </td>
-            <td>
+            <td class="px-2 text-center">
                 @Html.DisplayFor(model => item.Runtime)
             </td>
-            <td>
+            <td class="px-2 text-center">
                 @Html.DisplayFor(model => item.ReleaseDate)
             </td>
-            <td>
+            @* <td>
                 @Html.DisplayFor(model => item.CreatedDate)
-            </td>
-            <td>
+            </td> *@
+            <td class="px-2 text-center">
                 @Html.DisplayFor(model => item.Director)
             </td>
-            <td>
+            <td class="px-2 text-center">
                 @Html.DisplayFor(model => item.MovieStudio)
             </td>
-            <td>
+            <td class="px-2 text-center">
                 @Html.DisplayFor(model => item.Screenwriter)
             </td>
-            <td>
+            <td class="px-2 text-center">
                 @Html.DisplayFor(model => item.Distributor)
             </td>
-            <td>
+            <td class="px-2 text-center">
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
