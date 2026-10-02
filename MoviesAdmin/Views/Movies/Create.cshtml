@@ -18,9 +18,12 @@
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
 
+
+            @* // changing input to a text area in be more appropriate for the type of inputs, made a custom height*@
             <div class="mb-3">
                 <label asp-for="Synopsis" class="control-label"></label>
-                <input asp-for="Synopsis" class="form-control" />
+                @* <input asp-for="Synopsis" class="form-control input-field-h" /> *@
+                <textarea asp-for="Synopsis" class="form-control input-field-h"></textarea>
                 <span asp-validation-for="Synopsis" class="text-danger"></span>
             </div>
 

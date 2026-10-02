@@ -17,7 +17,7 @@ public class MoviesController : Controller
     {
 
         var movies = await _context.Movie
-            .OrderByDescending(x => x.ReleaseDate)
+            .OrderBy(x => x.ReleaseDate)
             .ToListAsync();
 
           
