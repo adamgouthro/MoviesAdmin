@@ -4,3 +4,12 @@
 
 <p>Spoiler Alert is a Movie Administration App whose objective is to create, remove, update and delete movie data for an movie review website. The application will allow staff and critics to log into their appropriate roles to manage movie data and reviews respectively. It will update data in the database, which will be displayed to users on the front end through an API. This project is being created as part of NSCC's Web App Development Course.</p>
 
+<h2>Tech Stack</h2>
+<ul>
+  <li>C#</li>
+  <li>Razor</li>
+  <li>ASP.NET</li>
+  <li>Entity Framework</li>
+  <li>Microsoft SQL Server</li>
+  <li>Docker</li>
+</ul>
