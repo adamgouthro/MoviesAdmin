@@ -11,7 +11,7 @@ namespace MoviesAdmin.Models
         [Required]
         public string Title { get; set; } = string.Empty; // movie title
 
-        [StringLength(500)]
+        [StringLength(750)]
         [Required] 
         public string Synopsis {  get; set; } = string.Empty; // movie synopsis 
 
@@ -42,7 +42,7 @@ namespace MoviesAdmin.Models
         public string Director { get; set; } = string.Empty; // director of movie
 
         [StringLength(100)]
-        [Display(Name = "Movie Studio")]
+        [Display(Name = "Movie Studio")] 
         [Required] 
         public string MovieStudio { get; set; } = string.Empty; // movie studio filmed by
 

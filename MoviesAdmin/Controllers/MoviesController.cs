@@ -17,7 +17,7 @@ public class MoviesController : Controller
     {
 
         var movies = await _context.Movie
-            .OrderBy(x => x.ReleaseDate)
+            .OrderByDescending(x => x.ReleaseDate) // order by descending to show the newest movies first, OrderBy returns the oldest first
             .ToListAsync();
 
           
