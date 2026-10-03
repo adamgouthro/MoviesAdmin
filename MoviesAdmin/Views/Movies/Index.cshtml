@@ -17,7 +17,7 @@
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             @* <th>
-                @Html.DisplayNameFor(model => model.Synopsis) // Make it cleaner
+                @Html.DisplayNameFor(model => model.Synopsis) // Hidden
             </th> *@
             <th class="px-2 text-center">
                 @Html.DisplayNameFor(model => model.Genre)
@@ -32,13 +32,13 @@
                 @Html.DisplayNameFor(model => model.ReleaseDate)
             </th>
             @* <th>
-                @Html.DisplayNameFor(model => model.CreatedDate) // They dont need to see the created date
+                @Html.DisplayNameFor(model => model.CreatedDate) // Hidden
             </th> *@
             <th class="px-2 text-center">
                 @Html.DisplayNameFor(model => model.Director)
             </th>
             <th class="px-2 text-center">
-                @Html.DisplayNameFor(model => model.MovieStudio)
+                @Html.DisplayNameFor(model => model.ProductionCompany)
             </th>
             <th class="px-2 text-center">
                 @Html.DisplayNameFor(model => model.Screenwriter)
@@ -58,7 +58,7 @@
                 @Html.DisplayFor(model => item.Title)
             </td>
             @* <td>
-                @Html.DisplayFor(model => item.Synopsis)
+                @Html.DisplayFor(model => item.Synopsis) // Hidden
             </td> *@
             <td class="px-2 text-center">
                 @Html.DisplayFor(model => item.Genre)
@@ -73,13 +73,13 @@
                 @Html.DisplayFor(model => item.ReleaseDate)
             </td>
             @* <td>
-                @Html.DisplayFor(model => item.CreatedDate)
+                @Html.DisplayFor(model => item.CreatedDate) // Hidden
             </td> *@
             <td class="px-2 text-center">
                 @Html.DisplayFor(model => item.Director)
             </td>
             <td class="px-2 text-center">
-                @Html.DisplayFor(model => item.MovieStudio)
+                @Html.DisplayFor(model => item.ProductionCompany)
             </td>
             <td class="px-2 text-center">
                 @Html.DisplayFor(model => item.Screenwriter)

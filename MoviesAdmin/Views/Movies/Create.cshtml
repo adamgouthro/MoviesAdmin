@@ -19,10 +19,9 @@
             </div>
 
 
-            @* // changing input to a text area in be more appropriate for the type of inputs, made a custom height*@
+            @* // changed input to a text area in be more appropriate for the type of inputs, made a custom height*@
             <div class="mb-3">
                 <label asp-for="Synopsis" class="control-label"></label>
-                @* <input asp-for="Synopsis" class="form-control input-field-h" /> *@
                 <textarea asp-for="Synopsis" class="form-control input-field-h"></textarea>
                 <span asp-validation-for="Synopsis" class="text-danger"></span>
             </div>
@@ -66,9 +65,9 @@
             </div>
 
             <div class="mb-3">
-                <label asp-for="MovieStudio" class="control-label"></label>
-                <input asp-for="MovieStudio" class="form-control" />
-                <span asp-validation-for="MovieStudio" class="text-danger"></span>
+                <label asp-for="ProductionCompany" class="control-label"></label>
+                <input asp-for="ProductionCompany" class="form-control" />
+                <span asp-validation-for="ProductionCompany" class="text-danger"></span>
             </div>
 
             <div class="mb-3">

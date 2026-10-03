@@ -42,9 +42,9 @@ namespace MoviesAdmin.Models
         public string Director { get; set; } = string.Empty; // director of movie
 
         [StringLength(100)]
-        [Display(Name = "Movie Studio")] 
+        [Display(Name = "Production Company")] 
         [Required] 
-        public string MovieStudio { get; set; } = string.Empty; // movie studio filmed by
+        public string ProductionCompany { get; set; } = string.Empty; // production company filmed by
 
         [StringLength(100)]
         [Required] 

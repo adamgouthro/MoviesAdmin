@@ -8,7 +8,7 @@
 
 <div>
     <hr />
-    <dl class="row">
+    <dl>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Title)
         </dt>
@@ -50,14 +50,14 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.ReleaseDate)
         </dd>
-    </dl>
+    @* </dl>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CreatedDate)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.CreatedDate)
         </dd>
-    </dl>
+    </dl> *@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Director)
         </dt>
@@ -66,10 +66,10 @@
         </dd>
     </dl>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MovieStudio)
+            @Html.DisplayNameFor(model => model.ProductionCompany)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MovieStudio)
+            @Html.DisplayFor(model => model.ProductionCompany)
         </dd>
     </dl>
         <dt class = "col-sm-2">
