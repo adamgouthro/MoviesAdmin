@@ -10,43 +10,37 @@
 <p>
     <a asp-action="Create">Add New Movie</a>
 </p>
-<table class="table-bordered">
+<table class="table table-bordered mx-auto table-bg-transparent border-black">
     <thead>
         <tr>
-            <th class="px-2 text-center">
+            <th class="px-2 text-center align-content-center">
+                Movie Poster
+            </th>
+            <th class="px-2 text-center align-content-center">
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             @* <th>
                 @Html.DisplayNameFor(model => model.Synopsis) // Hidden
             </th> *@
-            <th class="px-2 text-center">
+            <th class="px-2 text-center align-content-center">
                 @Html.DisplayNameFor(model => model.Genre)
             </th>
-            <th class="px-2 text-center">
+            <th class="px-2 text-center align-content-center">
                 @Html.DisplayNameFor(model => model.Rating)
             </th>
-            <th class="px-2 text-center">
+            <th class="px-2 text-center align-content-center">
                 @Html.DisplayNameFor(model => model.Runtime)
             </th>
-            <th class="px-2 text-center">
+            <th class="px-2 text-center align-content-center">
                 @Html.DisplayNameFor(model => model.ReleaseDate)
             </th>
             @* <th>
                 @Html.DisplayNameFor(model => model.CreatedDate) // Hidden
             </th> *@
-            <th class="px-2 text-center">
+            <th class="px-2 text-center align-content-center">
                 @Html.DisplayNameFor(model => model.Director)
             </th>
-            <th class="px-2 text-center">
-                @Html.DisplayNameFor(model => model.ProductionCompany)
-            </th>
-            <th class="px-2 text-center">
-                @Html.DisplayNameFor(model => model.Screenwriter)
-            </th>
-            <th class="px-2 text-center">
-                @Html.DisplayNameFor(model => model.Distributor)
-            </th>
-            <th class="px-2 text-center">
+            <th class="px-2 text-center align-content-center">
                 Options
             </th>
         </tr>
@@ -54,40 +48,34 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td class="px-2 text-center">
+            <td class="px-2 text-center align-content-center">
+                <img src="@item.ImageUrl" alt="@item.Title" class="thumbnail" />
+            </td>
+            <td class="px-2 text-center align-content-center">
                 @Html.DisplayFor(model => item.Title)
             </td>
             @* <td>
                 @Html.DisplayFor(model => item.Synopsis) // Hidden
             </td> *@
-            <td class="px-2 text-center">
+                <td class="px-2 text-center align-content-center">
                 @Html.DisplayFor(model => item.Genre)
             </td>
-            <td class="px-2 text-center">
+            <td class="px-2 text-center align-content-center">
                 @Html.DisplayFor(model => item.Rating)
             </td>
-            <td class="px-2 text-center">
+            <td class="px-2 text-center align-content-center">
                 @Html.DisplayFor(model => item.Runtime)
             </td>
-            <td class="px-2 text-center">
+            <td class="px-2 text-center align-content-center">
                 @Html.DisplayFor(model => item.ReleaseDate)
             </td>
             @* <td>
                 @Html.DisplayFor(model => item.CreatedDate) // Hidden
             </td> *@
-            <td class="px-2 text-center">
+            <td class="px-2 text-center align-content-center">
                 @Html.DisplayFor(model => item.Director)
             </td>
-            <td class="px-2 text-center">
-                @Html.DisplayFor(model => item.ProductionCompany)
-            </td>
-            <td class="px-2 text-center">
-                @Html.DisplayFor(model => item.Screenwriter)
-            </td>
-            <td class="px-2 text-center">
-                @Html.DisplayFor(model => item.Distributor)
-            </td>
-            <td class="px-2 text-center">
+            <td class="px-2 text-center align-content-center">
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>

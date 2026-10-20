@@ -12,6 +12,7 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="ImageUrl" />
             <div class="mb-3">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
@@ -56,19 +57,8 @@
                 <span asp-validation-for="Director" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="ProductionCompany" class="control-label"></label>
-                <input asp-for="ProductionCompany" class="form-control" />
-                <span asp-validation-for="ProductionCompany" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <label asp-for="Screenwriter" class="control-label"></label>
-                <input asp-for="Screenwriter" class="form-control" />
-                <span asp-validation-for="Screenwriter" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <label asp-for="Distributor" class="control-label"></label>
-                <input asp-for="Distributor" class="form-control" />
-                <span asp-validation-for="Distributor" class="text-danger"></span>
+                <label class="control-label" for="ImageUpload">Image Upload</label>
+                <input class="form-control" type="file" id="ImageUpload" name="ImageUpload" />
             </div>
             <div class="mb-3">
                 <input type="submit" value="Save" class="btn btn-primary" />

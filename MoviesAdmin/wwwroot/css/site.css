@@ -53,3 +53,17 @@ body {
 .input-field-h {
     height: 150px
 }
+
+.thumbnail {
+    width: auto;
+    height: 100px;
+}
+
+.table-bg-transparent {
+    --bs-table-bg: transparent;
+}
+
+.detail-image-sizing {
+    height: 300px;
+    width: auto;
+}

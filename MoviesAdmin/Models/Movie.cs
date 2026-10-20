@@ -41,18 +41,6 @@ namespace MoviesAdmin.Models
         [Required]
         public string Director { get; set; } = string.Empty; // director of movie
 
-        [StringLength(100)]
-        [Display(Name = "Production Company")] 
-        [Required] 
-        public string ProductionCompany { get; set; } = string.Empty; // production company filmed by
-
-        [StringLength(100)]
-        [Required] 
-        public string Screenwriter {  get; set; } = string.Empty; // screenwriter of movie
-
-        [StringLength(100)]
-        [Required] 
-        public string Distributor {  get; set; } = string.Empty; // the movies distributer
-
+        public string ImageUrl { get; set; } = string.Empty;
     }
 }
