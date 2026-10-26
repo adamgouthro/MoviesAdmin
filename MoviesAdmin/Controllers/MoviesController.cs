@@ -1,5 +1,6 @@
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MoviesAdmin.Models;
 using MoviesAdmin.Services;
@@ -50,6 +51,14 @@ public class MoviesController : Controller
     // GET: MOVIES/Create
     public IActionResult Create()
     {
+
+        var genres = _context.Genre.ToList();
+        ViewBag.CategoryId = new SelectList(genres, "Id", "Title");
+
+        var ratings = _context.AudienceRating.ToList();
+        ViewBag.CategoryId = new SelectList(ratings, "Id", "Title");
+
+
         return View();
     }
 
@@ -100,6 +109,13 @@ public class MoviesController : Controller
         {
             return NotFound();
         }
+
+        var genres = _context.Genre.ToList();
+        ViewBag.CategoryId = new SelectList(genres, "Id", "Title");
+
+        var ratings = _context.AudienceRating.ToList();
+        ViewBag.CategoryId = new SelectList(ratings, "Id", "Title");
+
         return View(movie);
     }
 
@@ -108,11 +124,24 @@ public class MoviesController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int? id, [Bind("Id,Title,Synopsis,Genre,Rating,Runtime,ReleaseDate,CreatedDate,Director,ImageUrl")] Movie movie)
+    public async Task<IActionResult> Edit(int? id, [Bind("Id,Title,Synopsis,Genre,Rating,Runtime,ReleaseDate,CreatedDate,Director,ImageUrl")] Movie movie, IFormFile? ImageUpload)
     {
         if (id != movie.Id)
         {
             return NotFound();
+        }
+
+        // DELETE OLD FILE -- TO-DO -- MAKE FUNCTION IN SERVICE TO DELETE FILE
+        if (ImageUpload != null)
+        {
+            string extension = Path.GetExtension(ImageUpload!.FileName); // includes the leading dot, e.g. ".jpg"
+            string newFileName = $"{Guid.NewGuid()}{extension}";
+
+            // Upload file to Azure Storage
+            string url = await _azureStorage.UploadFileAsync(ImageUpload, newFileName);
+
+            // Set the image URL in trail record            
+            movie.ImageUrl = url;
         }
 
         if (ModelState.IsValid)

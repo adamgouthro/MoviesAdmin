@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace MoviesAdmin.Models
 {
@@ -15,13 +16,14 @@ namespace MoviesAdmin.Models
         [Required] 
         public string Synopsis {  get; set; } = string.Empty; // movie synopsis 
 
-        [StringLength(20)] // Mostly one word genre's
-        [Required] 
-        public string Genre {  get; set; } = string.Empty; // movie genere
+        // Mostly one word genre's
+        [ValidateNever]
+        [Required]
+        public Genre Genre { get; set; } = null!; // movie genere
 
-        [StringLength(10)] // It should just be an abbriviation like PG-13, R, etc...
+        [ValidateNever]
         [Required] 
-        public string Rating {  get; set; } = string.Empty; // rating PG-13
+        public AudienceRating Rating {  get; set; } = null!; // rating PG-13
 
         [Range(1, 240)]
         [Display(Name = "Runtime (Minutes)")]
