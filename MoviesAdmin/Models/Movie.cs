@@ -16,13 +16,18 @@ namespace MoviesAdmin.Models
         [Required] 
         public string Synopsis {  get; set; } = string.Empty; // movie synopsis 
 
+        [Display(Name = "Genre")]
+        public int GenreId { get; set; }
+
         // Mostly one word genre's
         [ValidateNever]
-        [Required]
         public Genre Genre { get; set; } = null!; // movie genere
 
+
+        [Display(Name = "Audience Rating")]
+        public int AudienceRatingId { get; set; }
+
         [ValidateNever]
-        [Required] 
         public AudienceRating Rating {  get; set; } = null!; // rating PG-13
 
         [Range(1, 240)]

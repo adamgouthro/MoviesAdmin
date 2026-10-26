@@ -7,7 +7,7 @@ namespace MoviesAdmin.Models
         public int Id { get; set; }
 
         [ValidateNever]
-        public List<AudienceRating> ratings { get; set; } = new List<AudienceRating>();
+        public List<AudienceRating> Ratings { get; set; } = new List<AudienceRating>();
 
         [ValidateNever]
         public string Title { get; set; } = string.Empty;

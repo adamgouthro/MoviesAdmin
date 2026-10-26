@@ -18,7 +18,6 @@
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
 
-
             @* // changed input to a text area in be more appropriate for the type of inputs, made a custom height*@
             <div class="mb-3">
                 <label asp-for="Synopsis" class="control-label"></label>
@@ -27,13 +26,13 @@
             </div>
 
             <div class="mb-3">
-                <label asp-for="Genre" class="control-label"></label>
-                <select asp-for="Genre" class="form-select" asp-items="ViewBag.Genre"></select>
+                <label asp-for="GenreId" class="control-label"></label>
+                <select asp-for="GenreId" class="form-select" asp-items="ViewBag.GenreId"></select>
             </div>
 
             <div class="mb-3">
-                <label asp-for="Rating" class="control-label"></label>
-                <select asp-for="Rating" class="form-select" asp-items="ViewBag.AudienceRating"></select>
+                <label asp-for="AudienceRatingId" class="control-label"></label>
+                <select asp-for="AudienceRatingId" class="form-select" asp-items="ViewBag.AudienceRatingId"></select>
             </div>
 
             <div class="mb-3">

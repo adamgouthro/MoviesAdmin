@@ -1,0 +1,35 @@
+@model IEnumerable<MoviesAdmin.Models.AudienceRating>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Audience Ratings</h1>
+<hr />
+<p>
+    <a asp-action="Create">Add New Rating</a>
+</p>
+<table class="table table-bordered mx-auto table-bg-transparent border-black">
+    <thead>
+        <tr>
+            <th class="px-2 text-center align-content-center">
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th class="px-2 text-center align-content-center">Options</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td class="px-2 text-center align-content-center">
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td class="px-2 text-center align-content-center">
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -22,6 +22,8 @@ public class MoviesController : Controller
     {
 
         List<Movie> movies = await _context.Movie
+            .Include(m => m.Genre)
+            .Include(m => m.Rating)
             .OrderByDescending(x => x.ReleaseDate) // order by descending to show the newest movies first, OrderBy returns the oldest first
             .ToListAsync();
 
@@ -39,7 +41,10 @@ public class MoviesController : Controller
         }
 
         var movie = await _context.Movie
+            .Include(m => m.Genre)
+            .Include(m => m.Rating)
             .FirstOrDefaultAsync(m => m.Id == id);
+
         if (movie == null)
         {
             return NotFound();
@@ -52,11 +57,11 @@ public class MoviesController : Controller
     public IActionResult Create()
     {
 
-        var genres = _context.Genre.ToList();
-        ViewBag.CategoryId = new SelectList(genres, "Id", "Title");
+        var genres = _context.Genre.ToList().OrderBy(m => m.Title);
+        ViewBag.GenreId = new SelectList(genres, "Id", "Title");
 
         var ratings = _context.AudienceRating.ToList();
-        ViewBag.CategoryId = new SelectList(ratings, "Id", "Title");
+        ViewBag.AudienceRatingId = new SelectList(ratings, "Id", "Title");
 
 
         return View();
@@ -67,7 +72,7 @@ public class MoviesController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,Title,Synopsis,Genre,Rating,Runtime,ReleaseDate,CreatedDate,Director")] Movie movie, IFormFile? ImageUpload)
+    public async Task<IActionResult> Create([Bind("Id,Title,Synopsis,GenreId,AudienceRatingId,Runtime,ReleaseDate,CreatedDate,Director")] Movie movie, IFormFile? ImageUpload)
     {
 
         if (ImageUpload == null)
@@ -93,6 +98,13 @@ public class MoviesController : Controller
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        var genres = _context.Genre.ToList().OrderBy(m => m.Title);
+        ViewBag.GenreId = new SelectList(genres, "Id", "Title");
+
+        var ratings = _context.AudienceRating.ToList();
+        ViewBag.AudienceRatingId = new SelectList(ratings, "Id", "Title");
+
         return View(movie);
     }
 
@@ -105,16 +117,17 @@ public class MoviesController : Controller
         }
 
         var movie = await _context.Movie.FindAsync(id);
+
         if (movie == null)
         {
             return NotFound();
         }
 
-        var genres = _context.Genre.ToList();
-        ViewBag.CategoryId = new SelectList(genres, "Id", "Title");
+        var genres = _context.Genre.ToList().OrderBy(m=>m.Title);
+        ViewBag.GenreId = new SelectList(genres, "Id", "Title");
 
         var ratings = _context.AudienceRating.ToList();
-        ViewBag.CategoryId = new SelectList(ratings, "Id", "Title");
+        ViewBag.AudienceRatingId = new SelectList(ratings, "Id", "Title");
 
         return View(movie);
     }
@@ -124,14 +137,14 @@ public class MoviesController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int? id, [Bind("Id,Title,Synopsis,Genre,Rating,Runtime,ReleaseDate,CreatedDate,Director,ImageUrl")] Movie movie, IFormFile? ImageUpload)
+    public async Task<IActionResult> Edit(int? id, [Bind("Id,Title,Synopsis,GenreId,AudienceRatingId,Runtime,ReleaseDate,CreatedDate,Director,ImageUrl")] Movie movie, IFormFile? ImageUpload)
     {
         if (id != movie.Id)
         {
             return NotFound();
         }
 
-        // DELETE OLD FILE -- TO-DO -- MAKE FUNCTION IN SERVICE TO DELETE FILE
+        // DELETE OLD FILE -- TO-DO -- MAKE FUNCTI
         if (ImageUpload != null)
         {
             string extension = Path.GetExtension(ImageUpload!.FileName); // includes the leading dot, e.g. ".jpg"
@@ -165,6 +178,13 @@ public class MoviesController : Controller
             }
             return RedirectToAction(nameof(Index));
         }
+
+        var genres = _context.Genre.ToList().OrderBy(m => m.Title);
+        ViewBag.GenreId = new SelectList(genres, "Id", "Title");
+
+        var ratings = _context.AudienceRating.ToList();
+        ViewBag.AudienceRatingId = new SelectList(ratings, "Id", "Title");
+
         return View(movie);
     }
 
