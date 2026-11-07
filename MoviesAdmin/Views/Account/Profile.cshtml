@@ -5,20 +5,21 @@
 <div class="row">
     <div class="col-md-12">
         <h2>@ViewData["Title"]</h2>
+        <hr />
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-2 align-content-center">
                 <img src="@User.FindFirst(c => c.Type == "picture")?.Value" alt="User's profile picture" class="img-fluid rounded-circle" />
             </div>
             <div class="col-md-10">
                 <h3>@User.Identity.Name</h3>
                 <p><strong>Email:</strong> @User.FindFirst(c => c.Type == System.Security.Claims.ClaimTypes.Email)?.Value</p>
                 <p><strong>Email Verified:</strong> @User.FindFirst(c => c.Type == "email_verified")?.Value</p>
-                <p><strong>User ID:</strong> @User.FindFirst(c => c.Type == System.Security.Claims.ClaimTypes.NameIdentifier)?.Value</p>
+                @* <p><strong>User ID:</strong> @User.FindFirst(c => c.Type == System.Security.Claims.ClaimTypes.NameIdentifier)?.Value</p> *@
             </div>
         </div>
 
         <h4 class="mt-4">User Claims</h4>
-        <table class="table">
+        <table class="table table-bordered mx-auto table-bg-transparent border-black">
             <thead>
                 <tr>
                     <th>Claim Type</th>

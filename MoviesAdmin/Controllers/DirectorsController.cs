@@ -36,6 +36,7 @@ public class DirectorsController : Controller
         }
 
         var director = await _context.Director
+            .Include(m => m.Movies)
             .FirstOrDefaultAsync(m => m.Id == id);
         if (director == null)
         {
@@ -164,6 +165,7 @@ public class DirectorsController : Controller
         }
 
         var director = await _context.Director
+            .Include(m => m.Movies)
             .FirstOrDefaultAsync(m => m.Id == id);
         if (director == null)
         {

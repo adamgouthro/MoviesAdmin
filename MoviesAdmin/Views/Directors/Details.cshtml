@@ -36,6 +36,22 @@
             @Html.DisplayFor(model => model.Birthplace)
         </dd>
     </dl>
+        <dt>
+            @Html.DisplayNameFor(model => model.Movies)
+        </dt>
+        <hr class="mt-1"/>
+        <dd class="flex-row">
+            @foreach (var item in Model.Movies)
+            {
+                <div class="d-inline-block text-center align-content-center me-2">
+                    <div class="mb-1">@item.Title</div>
+                    <div>
+                        <img src="@item.ImageUrl" alt="@item.Title'" class="thumbnail" />
+                    </div>
+                </div>
+            }
+        </dd>
+    </dl>
 </div>
 <div>
     @if (User.IsInRole("administrator")) 
