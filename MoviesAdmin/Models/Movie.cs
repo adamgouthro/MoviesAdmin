@@ -23,12 +23,21 @@ namespace MoviesAdmin.Models
         [ValidateNever]
         public Genre Genre { get; set; } = null!; // movie genere
 
+        [ValidateNever]
+        public Director Director { get; set; } = null!;
+
+        [Display(Name = "Director")]
+        public int DirectorId { get; set; }
+
 
         [Display(Name = "Audience Rating")]
         public int AudienceRatingId { get; set; }
 
         [ValidateNever]
         public AudienceRating Rating {  get; set; } = null!; // rating PG-13
+
+        [ValidateNever]
+        [ScaffoldColumn(false)]        public List<CriticReview> CriticReviews { get; set; } = new List<CriticReview>();
 
         [Range(1, 240)]
         [Display(Name = "Runtime (Minutes)")]
@@ -43,10 +52,6 @@ namespace MoviesAdmin.Models
         [Display(Name = "Created")]
         [Required] 
         public DateTime CreatedDate { get; set; } = DateTime.Now; // time the movie is created
-
-        [StringLength(100)]
-        [Required]
-        public string Director { get; set; } = string.Empty; // director of movie
 
         public string ImageUrl { get; set; } = string.Empty;
     }

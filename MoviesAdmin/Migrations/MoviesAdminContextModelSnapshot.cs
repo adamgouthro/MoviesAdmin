@@ -43,6 +43,69 @@ namespace MoviesAdmin.Migrations
                     b.ToTable("AudienceRating");
                 });
 
+            modelBuilder.Entity("MoviesAdmin.Models.CriticReview", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsPublished")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("CriticReview");
+                });
+
+            modelBuilder.Entity("MoviesAdmin.Models.Director", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Birthplace")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Director");
+                });
+
             modelBuilder.Entity("MoviesAdmin.Models.Genre", b =>
                 {
                     b.Property<int>("Id")
@@ -79,10 +142,8 @@ namespace MoviesAdmin.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Director")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<int>("DirectorId")
+                        .HasColumnType("int");
 
                     b.Property<int>("GenreId")
                         .HasColumnType("int");
@@ -111,6 +172,8 @@ namespace MoviesAdmin.Migrations
 
                     b.HasIndex("AudienceRatingId");
 
+                    b.HasIndex("DirectorId");
+
                     b.HasIndex("GenreId");
 
                     b.ToTable("Movie");
@@ -121,6 +184,17 @@ namespace MoviesAdmin.Migrations
                     b.HasOne("MoviesAdmin.Models.AudienceRating", null)
                         .WithMany("Ratings")
                         .HasForeignKey("AudienceRatingId");
+                });
+
+            modelBuilder.Entity("MoviesAdmin.Models.CriticReview", b =>
+                {
+                    b.HasOne("MoviesAdmin.Models.Movie", "Movie")
+                        .WithMany("CriticReviews")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
                 });
 
             modelBuilder.Entity("MoviesAdmin.Models.Genre", b =>
@@ -138,11 +212,19 @@ namespace MoviesAdmin.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("MoviesAdmin.Models.Director", "Director")
+                        .WithMany("Movies")
+                        .HasForeignKey("DirectorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("MoviesAdmin.Models.Genre", "Genre")
                         .WithMany()
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Director");
 
                     b.Navigation("Genre");
 
@@ -154,9 +236,19 @@ namespace MoviesAdmin.Migrations
                     b.Navigation("Ratings");
                 });
 
+            modelBuilder.Entity("MoviesAdmin.Models.Director", b =>
+                {
+                    b.Navigation("Movies");
+                });
+
             modelBuilder.Entity("MoviesAdmin.Models.Genre", b =>
                 {
                     b.Navigation("Genres");
+                });
+
+            modelBuilder.Entity("MoviesAdmin.Models.Movie", b =>
+                {
+                    b.Navigation("CriticReviews");
                 });
 #pragma warning restore 612, 618
         }

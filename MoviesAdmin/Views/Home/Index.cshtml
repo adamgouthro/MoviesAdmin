@@ -4,6 +4,13 @@
 
 <div class="text-center">
     <img class="logo-index" src="~/images/logo-sa 2.png"/>
-    <h1 class="display-4">Spoiler Alert Administration</h1>
-    <p>Welcome to Spoiler Alert's administration page</p>
+     @if (User.Identity.IsAuthenticated)
+    {    
+        <h1 class="display-4">Spoiler Alert Administration</h1>
+        <p>Welcome to Spoiler Alert's administration page</p>
+    } else
+    {
+        <h1 class="display-4">Spoiler Alert Administration</h1>
+        <p>Please Log In to Spoler Alert Administraition</p> 
+    }
 </div>

@@ -67,14 +67,17 @@
         </dd>
 
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Director)
+            @Html.DisplayNameFor(model => model.DirectorId)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Director)
+            @Html.DisplayFor(model => model.Director.Name)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    @if (User.IsInRole("administrator")) 
+    {
+        <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> 
+    }
     <a asp-action="Index">Back to List</a>
 </div>
