@@ -19,7 +19,6 @@ namespace MoviesAdmin.Models
         [Display(Name = "Genre")]
         public int GenreId { get; set; }
 
-        // Mostly one word genre's
         [ValidateNever]
         public Genre Genre { get; set; } = null!; // movie genere
 

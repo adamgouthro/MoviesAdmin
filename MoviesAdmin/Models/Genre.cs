@@ -7,7 +7,6 @@ namespace MoviesAdmin.Models
     {
         public int Id { get; set; }
 
-
         [ValidateNever]
         public List<Genre> Genres { get; set; } = new List<Genre>();
 

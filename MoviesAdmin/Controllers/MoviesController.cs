@@ -171,10 +171,8 @@ public class MoviesController : Controller
             string extension = Path.GetExtension(ImageUpload!.FileName); // includes the leading dot, e.g. ".jpg"
             string newFileName = $"{Guid.NewGuid()}{extension}";
 
-            // Upload file to Azure Storage
             string url = await _azureStorage.UploadFileAsync(ImageUpload, newFileName);
-
-            // Set the image URL in trail record            
+         
             movie.ImageUrl = url;
         }
 

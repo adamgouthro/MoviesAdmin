@@ -6,9 +6,13 @@
 
 <h1>My Reviews</h1>
 
-<p>
-    <a asp-action="Create">Add New Review</a>
-</p>
+@if (User.IsInRole("critic"))
+{
+    <p>
+        <a asp-action="Create">Add New Review</a>
+    </p>
+}
+
 <table class="table table-bordered mx-auto table-bg-transparent border-black">
     <thead>
         <tr>
@@ -16,19 +20,11 @@
                 @Html.DisplayNameFor(model => model.MovieId)
             </th>
             <th class="px-2 text-center align-content-center">
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th class="px-2 text-center align-content-center">
                 @Html.DisplayNameFor(model => model.Rating)
             </th>
             <th class="px-2 text-center align-content-center">
-                @Html.DisplayNameFor(model => model.IsPublished)
-            </th>
-            <th class="px-2 text-center align-content-center">
-                @Html.DisplayNameFor(model => model.CreatedBy)
-            </th>
-            <th class="px-2 text-center align-content-center">
-                @Html.DisplayNameFor(model => model.CreatedDate)
+                @* @Html.DisplayNameFor(model => model.IsPublished) *@
+                <div>Published?</div>
             </th>
             <th class="px-2 text-center align-content-center">Options</th>
         </tr>
@@ -37,27 +33,32 @@
 @foreach (var item in Model) {
         <tr>
             <td class="px-2 text-center align-content-center">
-                @Html.DisplayFor(model => item.MovieId)
-            </td>
-            <td class="px-2 text-center align-content-center">
-                @Html.DisplayFor(model => item.Description)
+                @Html.DisplayFor(model => item.Movie.Title)
             </td>
             <td class="px-2 text-center align-content-center">
                 @Html.DisplayFor(model => item.Rating)
             </td>
             <td class="px-2 text-center align-content-center">
-                @Html.DisplayFor(model => item.IsPublished)
-            </td>
+                @* @Html.DisplayFor(model => item.IsPublished) *@
+                    @if (item.IsPublished == false)
+                    {
+                        <div>Not Published</div>
+                    }
+                    @if (item.IsPublished == true)
+                    {
+                        <div>Published</div>
+                    }
+                </td>
             <td class="px-2 text-center align-content-center">
-                @Html.DisplayFor(model => item.CreatedBy)
-            </td>
-            <td class="px-2 text-center align-content-center"> 
-                @Html.DisplayFor(model => item.CreatedDate)
-            </td>
-            <td class="px-2 text-center align-content-center">
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                @if (item.IsPublished == false)
+                {
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                }
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                @if (item.IsPublished == false)
+                {
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                }
             </td>
         </tr>
 }

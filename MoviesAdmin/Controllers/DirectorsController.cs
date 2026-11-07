@@ -122,13 +122,11 @@ public class DirectorsController : Controller
         // UPLOAD NEW FILE, GET URL, PLUG IN TO RECORD -- DELETE OLD FILE -- TODO
         if (ImageUpload != null)
         {
-            string extension = Path.GetExtension(ImageUpload!.FileName); // includes the leading dot, e.g. ".jpg"
+            string extension = Path.GetExtension(ImageUpload!.FileName); 
             string newFileName = $"{Guid.NewGuid()}{extension}";
 
-            // Upload file to Azure Storage
             string url = await _azureStorage.UploadFileAsync(ImageUpload, newFileName);
-
-            // Set the image URL in trail record            
+            
             director.ImageUrl = url;
         }
 

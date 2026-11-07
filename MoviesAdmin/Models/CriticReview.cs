@@ -15,10 +15,12 @@ namespace MoviesAdmin.Models
         public Movie Movie { get; set; } = null!;
         
         [Required]
+        [StringLength(1000)]
         public string Description { get; set; } = string.Empty; // the review
 
         [Required]
-        [Range(1, 5)]
+        [Range(0, 5)]
+        [Display(Name = "Rating (0 - 5)")]
         public int Rating { get; set; } // 1-5 star rating of movie
 
         [Required]

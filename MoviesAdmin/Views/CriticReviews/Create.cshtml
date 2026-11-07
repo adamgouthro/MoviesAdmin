@@ -4,9 +4,8 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Add New Review</h1>
 
-<h4>CriticReview</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -26,14 +25,14 @@
 
             <div class="mb-3">
                 <label asp-for="Rating" class="control-label"></label>
-                <input asp-for="Rating" class="form-control" />
+                <input asp-for="Rating" min="0" max="5" class="form-control" />
                 <span asp-validation-for="Rating" class="text-danger"></span>
             </div>
 
-            <div class="mb-3">
-                <label asp-for="IsPublished" class="control-label"></label>
-                <input asp-for="IsPublished" class="form-check-input" />
-                <span asp-validation-for="IsPublished" class="text-danger"></span>
+            <div class="mb-3 form-check mt-2">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsPublished" /> @Html.DisplayNameFor(model => model.IsPublished)
+                </label>
             </div>
 
             <div class="mb-3">

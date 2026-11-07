@@ -1,4 +1,5 @@
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -6,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using MoviesAdmin;
 using MoviesAdmin.Models;
 
+
+[Authorize]
 public class CriticReviewsController : Controller
 {
     private readonly MoviesAdminContext _context;
@@ -28,10 +31,22 @@ public class CriticReviewsController : Controller
     // GET: CRITICREVIEWS
     public async Task<IActionResult> Index()    
     {
-        var reviews = await _context.CriticReview
-        .Where(m => m.CreatedBy == _userId)
-        .Include(h => h.Movie)
-        .ToListAsync();
+
+        var reviews = new List<CriticReview>();
+
+        if(User.IsInRole("critic"))
+        {
+            reviews = await _context.CriticReview
+            .Where(m => m.CreatedBy == _userId)
+            .Include(h => h.Movie)
+            .ToListAsync();
+        }
+        if (User.IsInRole("administrator"))
+        {
+            reviews = await _context.CriticReview
+            .Include(h => h.Movie)
+            .ToListAsync();
+        }
 
         return View(reviews);
     }
@@ -46,6 +61,7 @@ public class CriticReviewsController : Controller
         }
 
         var criticreview = await _context.CriticReview
+            .Where(m => m.CreatedBy == _userId)
             .Include(h => h.Movie)
             .FirstOrDefaultAsync(m => m.Id == id);
         if (criticreview == null)
@@ -57,9 +73,10 @@ public class CriticReviewsController : Controller
     }
 
     // GET: CRITICREVIEWS/Create
-    public IActionResult Create()
+    public IActionResult Create(int? movieId)
     {
-        ViewData["MovieId"] = new SelectList(_context.Movie, "Id", "Title");
+        ViewData["MovieId"] = new SelectList(_context.Movie, "Id", "Title", movieId);
+
         return View();
     }
 
@@ -68,7 +85,7 @@ public class CriticReviewsController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,MovieId,Description,Rating,IsPublished,CreatedBy")] CriticReview criticreview)
+    public async Task<IActionResult> Create([Bind("Id,MovieId,Description,Rating,IsPublished")] CriticReview criticreview)
     {
 
         criticreview.CreatedBy = _userId;
@@ -92,14 +109,24 @@ public class CriticReviewsController : Controller
         }
 
         //ADD WHERE CLAUSE
-        var criticreview = await _context.CriticReview.FindAsync(id);
-
+        var criticreview = await _context.CriticReview
+            .Where(m => m.CreatedBy == _userId && m.IsPublished == false) // Only edit when not published yet
+            .Include(m => m.Movie)
+            .FirstOrDefaultAsync(m => m.Id == id);
 
         if (criticreview == null)
         {
-            return NotFound();
+            return View("404");
         }
+
+ 
+        if (criticreview.IsPublished == true)
+        {
+            return View("404");
+        }
+
         ViewData["MovieId"] = new SelectList(_context.Movie, "Id", "Title", criticreview.MovieId);
+
         return View(criticreview);
     }
 
@@ -108,7 +135,7 @@ public class CriticReviewsController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int? id, [Bind("Id,MovieId,Movie,Description,Rating,IsPublished,CreatedBy,CreatedDate")] CriticReview criticreview)
+    public async Task<IActionResult> Edit(int? id, [Bind("Id,MovieId,Description,Rating,IsPublished,CreatedBy,CreatedDate")] CriticReview criticreview)
     {
         if (id != criticreview.Id)
         {
@@ -135,7 +162,9 @@ public class CriticReviewsController : Controller
             }
             return RedirectToAction(nameof(Index));
         }
+
         ViewData["MovieId"] = new SelectList(_context.Movie, "Id", "Title", criticreview.MovieId);
+
         return View(criticreview);
     }
 
@@ -144,14 +173,22 @@ public class CriticReviewsController : Controller
     {
         if (id == null)
         {
-            return NotFound();
+            return View("404");
         }
 
         var criticreview = await _context.CriticReview
+            .Include(m => m.Movie)
+            .Where(m => m.CreatedBy == _userId && m.IsPublished == false) // Only edit when not published yet
             .FirstOrDefaultAsync(m => m.Id == id);
+
         if (criticreview == null)
         {
-            return NotFound();
+            return View("404");
+        }
+
+        if (criticreview.IsPublished == true)
+        {
+            return View("404");
         }
 
         return View(criticreview);

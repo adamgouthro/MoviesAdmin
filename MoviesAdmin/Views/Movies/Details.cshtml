@@ -74,10 +74,15 @@
         </dd>
     </dl>
 </div>
-<div>
+
+<div class="row">
     @if (User.IsInRole("administrator")) 
     {
         <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> 
+    }
+    @if (User.IsInRole("critic"))
+    {
+            <a asp-controller="CriticReviews" asp-action="Create" asp-route-movieId="@Model?.Id">Add Review</a>
     }
     <a asp-action="Index">Back to List</a>
 </div>
