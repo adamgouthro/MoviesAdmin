@@ -41,12 +41,15 @@ public class CriticReviewsController : Controller
             .Include(h => h.Movie)
             .ToListAsync();
         }
-        if (User.IsInRole("administrator"))
-        {
-            reviews = await _context.CriticReview
-            .Include(h => h.Movie)
-            .ToListAsync();
-        }
+
+        // To-Do -> Admin can go in and edit/delete reviews when needed
+
+        //if (User.IsInRole("administrator"))
+        //{
+        //    reviews = await _context.CriticReview
+        //    .Include(h => h.Movie)
+        //    .ToListAsync();
+        //}
 
         return View(reviews);
     }
@@ -64,6 +67,7 @@ public class CriticReviewsController : Controller
             .Where(m => m.CreatedBy == _userId)
             .Include(h => h.Movie)
             .FirstOrDefaultAsync(m => m.Id == id);
+
         if (criticreview == null)
         {
             return NotFound();
@@ -73,10 +77,22 @@ public class CriticReviewsController : Controller
     }
 
     // GET: CRITICREVIEWS/Create
-    public IActionResult Create(int? movieId)
-    {
-        ViewData["MovieId"] = new SelectList(_context.Movie, "Id", "Title", movieId);
 
+    // If the userId has already published a review for that movieId, dont show in the drop down
+    // Passing in the movie's Id
+    public IActionResult Create(int? movieId) { 
+
+        // Grabs any movies that do not have a review published by the matching userId
+        // Results thrown into the selectlist
+    
+        ViewData["MovieId"] = new SelectList(_context.Movie
+            .Where(m => !_context.CriticReview.Any(
+                c => c.IsPublished &&
+                c.MovieId == m.Id &&
+                c.CreatedBy == _userId
+                ))
+            , "Id", "Title", movieId);
+       
         return View();
     }
 
@@ -108,7 +124,6 @@ public class CriticReviewsController : Controller
             return NotFound();
         }
 
-        //ADD WHERE CLAUSE
         var criticreview = await _context.CriticReview
             .Where(m => m.CreatedBy == _userId && m.IsPublished == false) // Only edit when not published yet
             .Include(m => m.Movie)
@@ -178,7 +193,7 @@ public class CriticReviewsController : Controller
 
         var criticreview = await _context.CriticReview
             .Include(m => m.Movie)
-            .Where(m => m.CreatedBy == _userId && m.IsPublished == false) // Only edit when not published yet
+            .Where(m => m.CreatedBy == _userId && m.IsPublished == false) // When the id matches and ispublished is false
             .FirstOrDefaultAsync(m => m.Id == id);
 
         if (criticreview == null)

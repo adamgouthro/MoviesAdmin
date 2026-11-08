@@ -19,22 +19,37 @@ public class MoviesController : Controller
     }
 
 
-
+    // SOURCE -> Source -> https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/search?view=aspnetcore-10.0
+    // Moditified search method to meet query which populates index content
     // GET: MOVIES
-    public async Task<IActionResult> Index()    
+    public async Task<IActionResult> Index(string searchString)    
     {
 
         string userId = User.GetUserId();
         Console.WriteLine("Logged in user id: " + userId);
 
-        List<Movie> movies = await _context.Movie
-            .Include(m => m.Genre)
-            .Include(m => m.Rating)
-            .Include(m => m.Director)
-            .OrderByDescending(x => x.ReleaseDate) // order by descending to show the newest movies first, OrderBy returns the oldest first
-            .ToListAsync();
+        // Set default list which will be populate with all or the users search string
+        List<Movie> movies = new List<Movie>();
 
-          
+        if (!String.IsNullOrEmpty(searchString))
+        {
+            movies = await _context.Movie.Where(s => s.Title!.ToUpper().Contains(searchString.ToUpper()))
+                .Include(m => m.Genre)
+                .Include(m => m.Rating)
+                .Include(m => m.Director)
+                .OrderByDescending(x => x.ReleaseDate)
+                .ToListAsync();
+        }
+        else
+        {
+            movies = await _context.Movie
+                .Include(m => m.Genre)
+                .Include(m => m.Rating)
+                .Include(m => m.Director)
+                .OrderByDescending(x => x.ReleaseDate)
+                .ToListAsync();
+        }
+
         return View(movies);
 
     }
@@ -51,12 +66,29 @@ public class MoviesController : Controller
             .Include(m => m.Genre)
             .Include(m => m.Rating)
             .Include(m => m.Director)
+            .Include(m => m.CriticReviews)
             .FirstOrDefaultAsync(m => m.Id == id);
 
         if (movie == null)
         {
             return NotFound();
         }
+
+        int count = 0;
+
+        // Amount of reviews that contain the movie's Id -> for each review in the criticreview table == movie ID
+        foreach (var review in movie.CriticReviews)
+        {
+            if (movie.Id == review.MovieId)
+            {
+                count++;
+            }
+        }
+
+        ViewBag.ReviewCount = count;
+
+        // Source/Idea from - https://stackoverflow.com/questions/11296634/pass-a-simple-string-from-controller-to-a-view-mvc3
+        ViewBag.UserId = User.GetUserId();
 
         return View(movie);
     }

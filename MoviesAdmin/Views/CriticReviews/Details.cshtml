@@ -15,21 +15,21 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Movie.Title)
         </dd>
-    </dl>
+
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Description)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Description)
         </dd>
-    </dl>
+
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Rating)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Rating)
         </dd>
-    </dl>
+
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.IsPublished)
         </dt>
@@ -46,6 +46,9 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
+    @if (Model.IsPublished == false)
+    {
+        <a asp-action="Edit" asp-route-id="@Model?.Id" class="me-3">Edit</a>
+    }
     <a asp-action="Index">Back to List</a>
 </div>

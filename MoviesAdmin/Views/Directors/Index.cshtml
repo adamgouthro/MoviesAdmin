@@ -12,6 +12,15 @@
         <a asp-action="Create">Add New Director</a>
     </p>
 }
+
+@* Source -> https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/search?view=aspnetcore-10.0 *@ 
+<form asp-controller="Directors" asp-action="Index">
+    <p>
+        <input type="text" name="SearchString" />
+        <input type="submit" value="Search" class="bg-primary text-white border-0 rounded" />
+    </p>
+</form>
+
 <table class="table table-bordered mx-auto table-bg-transparent border-black">
     <thead >
         <tr>

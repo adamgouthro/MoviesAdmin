@@ -9,6 +9,7 @@ namespace MoviesAdmin.Models
 
         //foreign key 
         [Display(Name = "Movie")]
+        [Required]
         public int MovieId { get; set; }
 
         [ValidateNever]
@@ -16,6 +17,7 @@ namespace MoviesAdmin.Models
         
         [Required]
         [StringLength(1000)]
+        [Display(Name = "Review Text")]
         public string Description { get; set; } = string.Empty; // the review
 
         [Required]

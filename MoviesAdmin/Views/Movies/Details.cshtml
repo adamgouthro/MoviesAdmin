@@ -72,17 +72,25 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Director.Name)
         </dd>
+        <dt class = "col-sm-2">
+            Total Reviews:
+        </dt>
+        <dd class = "col-sm-10">
+            @ViewBag.ReviewCount
+        </dd>
     </dl>
 </div>
 
 <div class="row">
+    <div class="d-flex gap-3">
     @if (User.IsInRole("administrator")) 
     {
-        <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> 
+        <a asp-action="Edit" asp-route-id="@Model?.Id" class="me-3">Edit</a> 
     }
-    @if (User.IsInRole("critic"))
+    @if (User.IsInRole("critic") && !Model.CriticReviews.Any(c => c.CreatedBy == ViewBag.UserId && c.IsPublished))
     {
-            <a asp-controller="CriticReviews" asp-action="Create" asp-route-movieId="@Model?.Id">Add Review</a>
+         <a asp-controller="CriticReviews" asp-action="Create" asp-route-movieId="@Model?.Id" class="me-3">Add Review</a>
     }
     <a asp-action="Index">Back to List</a>
+    </div>
 </div>

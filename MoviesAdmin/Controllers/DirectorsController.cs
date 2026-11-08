@@ -18,12 +18,23 @@ public class DirectorsController : Controller
     }
 
     // GET: DIRECTORS
-    public async Task<IActionResult> Index()    
+    public async Task<IActionResult> Index(string searchString)
     {
         {
-            return View(await _context.Director
-                .OrderBy(m => m.Name)
-                .ToListAsync());
+
+            List<Director> directors = new List<Director>();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                directors = await _context.Director.Where(d => d.Name!.ToUpper().Contains(searchString.ToUpper())).OrderBy(d => d.Name).ToListAsync();
+            }
+            else
+            {
+                directors = await _context.Director.OrderBy(d => d.Name).ToListAsync();
+            }
+
+            return View(directors);
+
         }
     }
 
